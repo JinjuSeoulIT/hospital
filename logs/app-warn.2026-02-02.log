@@ -1,0 +1,19 @@
+2026-02-02 09:06:07,934 WARN  [restartedMain] org.hibernate.dialect.Oracle9Dialect - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2026-02-02 09:06:07,937 WARN  [restartedMain] org.hibernate.dialect.OracleDialect - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
+2026-02-02 12:35:14,234 WARN  [Thread-6] org.apache.catalina.loader.WebappClassLoaderBase - The web application [ROOT] appears to have started a thread named [logback-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.12/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.12/java.util.concurrent.locks.LockSupport.park(LockSupport.java:341)
+ java.base@17.0.12/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionNode.block(AbstractQueuedSynchronizer.java:506)
+ java.base@17.0.12/java.util.concurrent.ForkJoinPool.unmanagedBlock(ForkJoinPool.java:3465)
+ java.base@17.0.12/java.util.concurrent.ForkJoinPool.managedBlock(ForkJoinPool.java:3436)
+ java.base@17.0.12/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:1623)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1170)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.12/java.lang.Thread.run(Thread.java:842)
+2026-02-02 12:35:19,233 WARN  [restartedMain] org.hibernate.dialect.Oracle9Dialect - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2026-02-02 12:35:19,234 WARN  [restartedMain] org.hibernate.dialect.OracleDialect - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
+2026-02-02 12:35:24,093 WARN  [restartedMain] org.hibernate.dialect.Oracle9Dialect - HHH000063: The Oracle9Dialect dialect has been deprecated; use either Oracle9iDialect or Oracle10gDialect instead
+2026-02-02 12:35:24,094 WARN  [restartedMain] org.hibernate.dialect.OracleDialect - HHH000064: The OracleDialect dialect has been deprecated; use Oracle8iDialect instead
