@@ -21,13 +21,12 @@ public class CodeServiceImpl implements CodeService {
     @Override
     public List<CodeRes> findByGroup(String groupCode) {
         List<CodeEntity> entities = codeRepository
-                .findAllByGroupCodeAndIsActiveTrueOrderBySortOrderAscIdAsc(groupCode);
+                .findAllByGroupCodeAndIsActiveTrueOrderBySortOrderAscCodeAsc(groupCode);
         return entities.stream().map(this::toRes).collect(Collectors.toList());
     }
 
     private CodeRes toRes(CodeEntity entity) {
         CodeRes res = new CodeRes();
-        res.setId(entity.getId());
         res.setGroupCode(entity.getGroupCode());
         res.setCode(entity.getCode());
         res.setName(entity.getName());

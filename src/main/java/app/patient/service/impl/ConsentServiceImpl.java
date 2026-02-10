@@ -1,16 +1,20 @@
 package app.patient.service.impl;
 
-import app.patient.storage.PatientStorageService;
 import app.patient.dto.ConsentCreateReqDTO;
+import app.patient.dto.ConsentLatestResDTO;
 import app.patient.dto.ConsentResDTO;
 import app.patient.dto.ConsentUpdateReqDTO;
+import app.patient.dto.ConsentWithdrawHistoryResDTO;
 import app.patient.entity.ConsentEntity;
+import app.patient.entity.ConsentWithdrawHistoryEntity;
 import app.patient.exception.ConsentNotFoundException;
 import app.patient.mapper.ConsentMapper;
 import app.patient.mapstruct.ConsentReqMapStruct;
 import app.patient.mapstruct.ConsentResMapStruct;
 import app.patient.repository.ConsentRepository;
+import app.patient.repository.ConsentWithdrawHistoryRepository;
 import app.patient.service.ConsentService;
+import app.patient.storage.PatientStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,7 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +40,7 @@ public class ConsentServiceImpl implements ConsentService {
     private final ConsentReqMapStruct consentReqMapStruct;
     private final ConsentResMapStruct consentResMapStruct;
     private final PatientStorageService patientStorageService;
+    private final ConsentWithdrawHistoryRepository consentWithdrawHistoryRepository;
 
     @Override
     public List<ConsentResDTO> findList(Long patientId) {
@@ -82,6 +89,9 @@ public class ConsentServiceImpl implements ConsentService {
         ConsentEntity saved = consentRepository.findByConsentIdAndPatientId(consentId, patientId)
                 .orElseThrow(() -> new ConsentNotFoundException(consentId));
 
+        boolean wasActive = Boolean.TRUE.equals(saved.getActiveYn());
+        LocalDateTime beforeWithdrawnAt = saved.getWithdrawnAt();
+
         if (updateReqDTO.getActiveYn() != null) {
             boolean nextActive = updateReqDTO.getActiveYn();
             saved.setActiveYn(nextActive);
@@ -102,6 +112,12 @@ public class ConsentServiceImpl implements ConsentService {
             saved.setFileUrl(fileUrl);
         }
 
+        if (wasActive && Boolean.FALSE.equals(saved.getActiveYn())) {
+            logWithdrawHistory(saved, saved.getWithdrawnAt());
+        } else if (beforeWithdrawnAt == null && saved.getWithdrawnAt() != null) {
+            logWithdrawHistory(saved, saved.getWithdrawnAt());
+        }
+
         return consentResMapStruct.toDTO(saved);
     }
 
@@ -111,8 +127,14 @@ public class ConsentServiceImpl implements ConsentService {
     public void remove(Long patientId, Long consentId) {
         log.info("Service: consent delete, patientId={}, consentId={}", patientId, consentId);
 
-        if (!consentRepository.existsByConsentIdAndPatientId(consentId, patientId)) {
-            throw new ConsentNotFoundException(consentId);
+        ConsentEntity saved = consentRepository.findByConsentIdAndPatientId(consentId, patientId)
+                .orElseThrow(() -> new ConsentNotFoundException(consentId));
+
+        if (Boolean.TRUE.equals(saved.getActiveYn()) || saved.getWithdrawnAt() == null) {
+            logWithdrawHistory(saved, saved.getWithdrawnAt() != null
+                    ? saved.getWithdrawnAt()
+                    : LocalDateTime.now()
+            );
         }
         consentRepository.deleteById(consentId);
     }
@@ -129,6 +151,64 @@ public class ConsentServiceImpl implements ConsentService {
                         .filter(e -> patientId.equals(e.getPatientId()))
                         .collect(Collectors.toList())
         );
+    }
+
+    @Override
+    public List<ConsentLatestResDTO> findLatestByPatient(Long patientId) {
+        List<ConsentEntity> entities = consentRepository.findByPatientIdOrderByCreatedAtDesc(patientId);
+        Map<String, ConsentEntity> latestByType = entities.stream()
+                .filter(e -> e.getConsentType() != null)
+                .collect(Collectors.toMap(
+                        ConsentEntity::getConsentType,
+                        e -> e,
+                        (a, b) -> compareLatest(a, b) >= 0 ? a : b
+                ));
+
+        return latestByType.values().stream()
+                .sorted(Comparator.comparing(ConsentEntity::getConsentType))
+                .map(e -> new ConsentLatestResDTO(
+                        e.getConsentId(),
+                        e.getConsentType(),
+                        e.getActiveYn(),
+                        e.getAgreedAt(),
+                        e.getWithdrawnAt()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ConsentWithdrawHistoryResDTO> findWithdrawHistory(Long patientId) {
+        return consentWithdrawHistoryRepository.findByPatientIdOrderByCreatedAtDesc(patientId)
+                .stream()
+                .map(e -> new ConsentWithdrawHistoryResDTO(
+                        e.getHistoryId(),
+                        e.getConsentId(),
+                        e.getConsentType(),
+                        e.getWithdrawnAt(),
+                        e.getChangedBy(),
+                        e.getCreatedAt()
+                ))
+                .collect(Collectors.toList());
+    }
+
+    private int compareLatest(ConsentEntity a, ConsentEntity b) {
+        LocalDateTime aTime = a.getAgreedAt() != null ? a.getAgreedAt() : a.getCreatedAt();
+        LocalDateTime bTime = b.getAgreedAt() != null ? b.getAgreedAt() : b.getCreatedAt();
+        if (aTime == null && bTime == null) return 0;
+        if (aTime == null) return -1;
+        if (bTime == null) return 1;
+        return aTime.compareTo(bTime);
+    }
+
+    private void logWithdrawHistory(ConsentEntity consent, LocalDateTime withdrawnAt) {
+        if (consent == null) return;
+        ConsentWithdrawHistoryEntity history = new ConsentWithdrawHistoryEntity();
+        history.setConsentId(consent.getConsentId());
+        history.setPatientId(consent.getPatientId());
+        history.setConsentType(consent.getConsentType());
+        history.setWithdrawnAt(withdrawnAt != null ? withdrawnAt : LocalDateTime.now());
+        history.setChangedBy(null);
+        consentWithdrawHistoryRepository.save(history);
     }
 }
 

@@ -8,14 +8,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "LHS", name = "insurance")
+@Table(name = "patient_insurance")
 @Getter @Setter
 public class InsuranceEntity {
 
     @Id
     @SequenceGenerator(
             name = "patient_insurance_seq",
-            sequenceName = "LHS.PATIENT_INSURANCE_SEQ",
+            sequenceName = "PATIENT_INSURANCE_SEQ",
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_insurance_seq")

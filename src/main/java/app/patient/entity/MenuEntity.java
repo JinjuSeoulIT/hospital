@@ -8,13 +8,13 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "LHS", name = "menu")
+@Table(name = "menu")
 @Getter
 @Setter
 public class MenuEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "menu_id")
     private Long id;
 
     @Column(name = "parent_id")

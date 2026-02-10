@@ -7,14 +7,14 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "LHS", name = "consent")
+@Table(name = "patient_consent")
 @Getter @Setter
 public class ConsentEntity {
 
     @Id
     @SequenceGenerator(
             name = "patient_consent_seq",
-            sequenceName = "LHS.PATIENT_CONSENT_SEQ",
+            sequenceName = "PATIENT_CONSENT_SEQ",
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_consent_seq")

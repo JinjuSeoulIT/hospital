@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 import app.common.ApiResponse;
 import app.patient.dto.ConsentCreateReqDTO;
+import app.patient.dto.ConsentLatestResDTO;
 import app.patient.dto.ConsentResDTO;
 import app.patient.dto.ConsentUpdateReqDTO;
+import app.patient.dto.ConsentWithdrawHistoryResDTO;
 import app.patient.service.ConsentService;
 
 import lombok.RequiredArgsConstructor;
@@ -51,7 +53,7 @@ public class ConsentController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Not found"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "422", description = "Unprocessable entity")
     })
-    @GetMapping("/{consentId}")
+    @GetMapping("/{consentId:\\d+}")
     public ResponseEntity<ApiResponse<ConsentResDTO>> findDetail(
             @PathVariable Long patientId,
             @PathVariable Long consentId
@@ -75,7 +77,7 @@ public class ConsentController {
     }
 
     @Operation(summary = "Update consent", description = "Update a consent.")
-    @PutMapping(value = "/{consentId}", consumes = {"multipart/form-data"})
+    @PutMapping(value = "/{consentId:\\d+}", consumes = {"multipart/form-data"})
     public ResponseEntity<ApiResponse<ConsentResDTO>> modify(
             @PathVariable Long patientId,
             @PathVariable Long consentId,
@@ -88,7 +90,7 @@ public class ConsentController {
     }
 
     @Operation(summary = "Delete consent", description = "Delete a consent.")
-    @DeleteMapping("/{consentId}")
+    @DeleteMapping("/{consentId:\\d+}")
     public ResponseEntity<ApiResponse<Void>> remove(
             @PathVariable Long patientId,
             @PathVariable Long consentId
@@ -115,6 +117,24 @@ public class ConsentController {
             return ResponseEntity.ok(new ApiResponse<>(false, "No results", List.of()));
         }
 
+        return ResponseEntity.ok(new ApiResponse<>(true, "OK", list));
+    }
+
+    @Operation(summary = "Latest consent status", description = "Latest consent status per consent type.")
+    @GetMapping("/latest")
+    public ResponseEntity<ApiResponse<List<ConsentLatestResDTO>>> latest(
+            @PathVariable Long patientId
+    ) {
+        List<ConsentLatestResDTO> list = service.findLatestByPatient(patientId);
+        return ResponseEntity.ok(new ApiResponse<>(true, "OK", list));
+    }
+
+    @Operation(summary = "Consent withdraw history", description = "Withdraw history for a patient.")
+    @GetMapping("/withdraw-history")
+    public ResponseEntity<ApiResponse<List<ConsentWithdrawHistoryResDTO>>> withdrawHistory(
+            @PathVariable Long patientId
+    ) {
+        List<ConsentWithdrawHistoryResDTO> list = service.findWithdrawHistory(patientId);
         return ResponseEntity.ok(new ApiResponse<>(true, "OK", list));
     }
 }

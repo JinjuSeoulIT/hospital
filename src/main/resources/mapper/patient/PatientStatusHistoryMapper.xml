@@ -14,7 +14,7 @@
       reason,
       changed_by,
       changed_at
-    FROM status_history
+    FROM patient_status_history
     <where>
       <choose>
         <when test="type == 'patientId'">
