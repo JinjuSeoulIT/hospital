@@ -16,13 +16,13 @@ import java.util.List;
 @RequestMapping("/api/specimen")
 @RequiredArgsConstructor
 @Slf4j
-@Tag(name = "Specimen", description = "간호사 문진")
+@Tag(name = "Specimen", description = "간호사 검체")
 public class SpecimenController {
 
 
     private final SpecimenService specimenService;
 
-    @Operation(summary = "specimen list", description = "문진 전체 목록 조회")
+    @Operation(summary = "specimen list", description = "검체 전체 목록 조회")
     @GetMapping
     public ResponseEntity<ApiResponse<List<SpecimenDTO>>> findList() {
 
@@ -42,17 +42,17 @@ public class SpecimenController {
 
 
 
-    @Operation(summary = "Create specimen", description = "문진 신규 생성")
+    @Operation(summary = "Create specimen", description = "검체 신규 생성")
     @PostMapping
     public ResponseEntity<ApiResponse<SpecimenDTO>> registerSpecimen(@RequestBody SpecimenDTO specimen)
     {
         SpecimenDTO specimenDTO = specimenService.registerSpecimen(specimen);
-        return ResponseEntity.ok(new ApiResponse<>(true, "문진 신규 생성 성공", specimenDTO));
+        return ResponseEntity.ok(new ApiResponse<>(true, "검체 신규 생성 성공", specimenDTO));
     }
 
 
 
-    @Operation(summary = "Update specimen", description = "문진 수정.")
+    @Operation(summary = "Update specimen", description = "검체 수정.")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<SpecimenDTO>> modifySpecimen(
             @PathVariable String id,
@@ -60,10 +60,10 @@ public class SpecimenController {
     ) {
 
         SpecimenDTO updated = specimenService.modifySpecimen(id, specimenDTO);
-        return ResponseEntity.ok(new ApiResponse<>(true, "문진 수정 성공", updated));
+        return ResponseEntity.ok(new ApiResponse<>(true, "검체 수정 성공", updated));
     }
 
-    @Operation(summary = "Delete specimen", description = "문진 비활성화(is_active).")
+    @Operation(summary = "Delete specimen", description = "검체 비활성화(is_active).")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<String>> removeSpecimen(@PathVariable String id) {
 

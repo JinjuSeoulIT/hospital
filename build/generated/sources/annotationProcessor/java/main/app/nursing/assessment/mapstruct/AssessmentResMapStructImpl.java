@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-06T17:18:43+0900",
+    date = "2026-02-10T14:06:52+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 17.0.12 (Oracle Corporation)"
 )
 @Component
@@ -30,6 +30,7 @@ public class AssessmentResMapStructImpl implements AssessmentResMapStruct {
         assessmentDTO.setMedicalHistory( entity.getMedicalHistory() );
         assessmentDTO.setAllergyYn( entity.getAllergyYn() );
         assessmentDTO.setAllergyNote( entity.getAllergyNote() );
+        assessmentDTO.setIsActive( entity.getIsActive() );
         if ( entity.getCreatedAt() != null ) {
             assessmentDTO.setCreatedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getCreatedAt() ) );
         }

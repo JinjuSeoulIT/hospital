@@ -1,5 +1,7 @@
 package app.nursing.specimen.service;
 
+import app.nursing.specimen.dto.SpecimenDTO;
+import app.nursing.specimen.entity.SpecimenEntity;
 import app.nursing.specimen.mapstruct.SpecimenReqMapStruct;
 import app.nursing.specimen.mapstruct.SpecimenResMapStruct;
 import app.nursing.specimen.repository.SpecimenRepository;
@@ -32,7 +34,7 @@ public class SpecimenServiceImpl implements SpecimenService {
         log.info("Specimen detail id={} 로 검체 단건 조회 메서드가 실행됩니다.", id);
 
         SpecimenEntity entity = specimenRepository.findById(id).
-                orElseThrow(()-> new IllegalArgumentException("해당 검체이 존재하지 않습니다"));
+                orElseThrow(()-> new IllegalArgumentException("해당 검체가 존재하지 않습니다"));
 
         return specimenResMapStruct.toDTO(entity);
     }
@@ -60,11 +62,9 @@ public class SpecimenServiceImpl implements SpecimenService {
                 .orElseThrow(() -> new IllegalArgumentException("수정할 검체이 존재하지 않습니다"));
 
         saved.setVisitId(specimenDTO.getVisitId());
-        saved.setVisitReason(specimenDTO.getVisitReason());
-        saved.setMedicalHistory(specimenDTO.getMedicalHistory());
-        saved.setAllergyYn(specimenDTO.getAllergyYn());
-        saved.setAllergyNote(specimenDTO.getAllergyNote());
-        saved.setNurseId(specimenDTO.getNurseId());
+        saved.setSpecimenType(specimenDTO.getSpecimenType());
+        saved.setStatus(specimenDTO.getStatus());
+        saved.setCreatedBy(specimenDTO.getCreatedBy());
 
         SpecimenEntity updated = specimenRepository.save(saved);
         return specimenResMapStruct.toDTO(updated);
@@ -78,7 +78,7 @@ public class SpecimenServiceImpl implements SpecimenService {
         SpecimenEntity entity = specimenRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("비활성화 할 검체이 존재하지 않습니다"));
 
-        entity.setIsActive("N");
+        entity.setStatus("N");
 
         specimenRepository.save(entity);
 

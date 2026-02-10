@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "SPECIMENT")
+@Table(name = "SPECIMEN")
 public class SpecimenEntity {
 
     @Id
-    @Column(name = "SPECIMEN_ID,")
+    @Column(name = "SPECIMEN_ID")
     private String specimenId;
 
     @Column(name = "VISIT_ID")
@@ -24,9 +24,6 @@ public class SpecimenEntity {
 
     @Column(name = "SPECIMEN_TYPE")
     private String specimenType;
-
-    @Column(name = "TEST_TYPE")
-    private String testType;
 
     @Column(name = "COLLECTED_AT")
     private LocalDateTime collectedAt;

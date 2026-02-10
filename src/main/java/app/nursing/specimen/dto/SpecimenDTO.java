@@ -12,7 +12,6 @@ public class SpecimenDTO {
     private String specimenId;
     private String visitId;
     private String specimenType;
-    private String testType;
     private String collectedAt;
     private String status;
     private String createdAt;

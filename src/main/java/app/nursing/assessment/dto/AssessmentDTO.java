@@ -15,6 +15,7 @@ public class AssessmentDTO {
     private String medicalHistory;
     private String allergyYn;
     private String allergyNote;
+    private String isActive;
     private String createdAt;
     private String updatedAt;
     private String nurseId;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-06T17:18:42+0900",
+    date = "2026-02-10T14:06:52+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 17.0.12 (Oracle Corporation)"
 )
 @Component
@@ -28,6 +28,7 @@ public class AssessmentReqMapStructImpl implements AssessmentReqMapStruct {
         assessmentEntity.setMedicalHistory( dto.getMedicalHistory() );
         assessmentEntity.setAllergyYn( dto.getAllergyYn() );
         assessmentEntity.setAllergyNote( dto.getAllergyNote() );
+        assessmentEntity.setIsActive( dto.getIsActive() );
         if ( dto.getCreatedAt() != null ) {
             assessmentEntity.setCreatedAt( LocalDateTime.parse( dto.getCreatedAt() ) );
         }

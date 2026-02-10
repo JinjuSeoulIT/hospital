@@ -1,0 +1,59 @@
+package app.nursing.specimen.mapstruct;
+
+import app.nursing.specimen.dto.SpecimenDTO;
+import app.nursing.specimen.entity.SpecimenEntity;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2026-02-10T09:43:07+0900",
+    comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 17.0.12 (Oracle Corporation)"
+)
+@Component
+public class SpecimenResMapStructImpl implements SpecimenResMapStruct {
+
+    @Override
+    public SpecimenDTO toDTO(SpecimenEntity entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        SpecimenDTO specimenDTO = new SpecimenDTO();
+
+        specimenDTO.setSpecimenId( entity.getSpecimenId() );
+        specimenDTO.setVisitId( entity.getVisitId() );
+        specimenDTO.setSpecimenType( entity.getSpecimenType() );
+        specimenDTO.setTestType( entity.getTestType() );
+        if ( entity.getCollectedAt() != null ) {
+            specimenDTO.setCollectedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getCollectedAt() ) );
+        }
+        specimenDTO.setStatus( entity.getStatus() );
+        if ( entity.getCreatedAt() != null ) {
+            specimenDTO.setCreatedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getCreatedAt() ) );
+        }
+        if ( entity.getUpdatedAt() != null ) {
+            specimenDTO.setUpdatedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getUpdatedAt() ) );
+        }
+        specimenDTO.setCreatedBy( entity.getCreatedBy() );
+
+        return specimenDTO;
+    }
+
+    @Override
+    public List<SpecimenDTO> toDTOList(List<SpecimenEntity> entities) {
+        if ( entities == null ) {
+            return null;
+        }
+
+        List<SpecimenDTO> list = new ArrayList<SpecimenDTO>( entities.size() );
+        for ( SpecimenEntity specimenEntity : entities ) {
+            list.add( toDTO( specimenEntity ) );
+        }
+
+        return list;
+    }
+}
