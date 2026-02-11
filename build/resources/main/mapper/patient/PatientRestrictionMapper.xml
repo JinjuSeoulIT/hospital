@@ -15,7 +15,7 @@
       start_at,
       end_at,
       created_by
-    FROM restriction
+    FROM patient_restriction
     <where>
       <choose>
         <when test="type == 'patientId'">

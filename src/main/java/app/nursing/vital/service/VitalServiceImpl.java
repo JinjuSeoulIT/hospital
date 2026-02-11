@@ -48,7 +48,9 @@ public class VitalServiceImpl implements VitalService {
         if (entity.getVitalId() == null || entity.getVitalId().trim().isEmpty()) {
             entity.setVitalId("VI-" + UUID.randomUUID().toString().substring(0, 8));
         }
+
         VitalEntity newVital = vitalRepository.save(entity);
+        newVital.setStatus("ACTIVE");
         return vitalResMapStruct.toDTO(newVital);
     }
 
@@ -66,6 +68,7 @@ public class VitalServiceImpl implements VitalService {
         saved.setPulse(VitalDTO.getPulse());
         saved.setRespiration(VitalDTO.getRespiration());
         saved.setBloodPressure(VitalDTO.getBloodPressure());
+        saved.setMeasuredAt(VitalDTO.getMeasuredAt());
 
         VitalEntity updated = vitalRepository.save(saved);
         return vitalResMapStruct.toDTO(updated);
@@ -79,8 +82,7 @@ public class VitalServiceImpl implements VitalService {
         VitalEntity entity = vitalRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("비활성화 할 검체이 존재하지 않습니다"));
 
-        entity.setStatus(entity.getStatus());
-
+        entity.setStatus("INACTIVE");
         vitalRepository.save(entity);
 
     }

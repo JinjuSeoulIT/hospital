@@ -14,7 +14,7 @@
       active_yn,
       created_at,
       updated_at
-    FROM flag
+    FROM patient_flag
     <where>
       <choose>
         <when test="type == 'patientId'">
