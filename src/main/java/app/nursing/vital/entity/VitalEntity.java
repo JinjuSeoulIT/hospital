@@ -37,6 +37,10 @@ public class VitalEntity {
     @Column(name = "MEASURED_AT")
     private LocalDateTime measuredAt;
 
-    @Column(name = "CREATED_BY")
-    private LocalDateTime createdBy;
+    @Column(name = "CREATED_AT")
+    private LocalDateTime createdAt;
+
+    @Column(name = "STATUS")
+    private String status;
+
 }

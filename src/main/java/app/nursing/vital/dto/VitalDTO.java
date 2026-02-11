@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,6 +17,7 @@ public class VitalDTO {
     private String pulse;
     private String respiration;
     private String bloodPressure;
-    private String measuredAt;
-    private String createdBy;
+    private LocalDateTime measuredAt;
+    private LocalDateTime createdAt;
+    private String status;
 }

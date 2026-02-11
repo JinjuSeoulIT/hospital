@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/Vital")
+@RequestMapping("/api/vital")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Vital", description = "간호사 검체")
