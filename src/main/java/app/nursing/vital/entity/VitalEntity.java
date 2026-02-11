@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "Vital_SIGN")
+@Table(schema = "CHJ",name = "Vital_SIGN")
 public class VitalEntity {
 
     @Id

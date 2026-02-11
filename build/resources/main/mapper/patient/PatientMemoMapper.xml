@@ -12,7 +12,7 @@
       memo,
       created_by,
       created_at
-    FROM memo
+    FROM patient_memo
     <where>
       <choose>
         <when test="type == 'patientId'">
