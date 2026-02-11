@@ -28,6 +28,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import app.patient.service.CodeValidationService;
 
 @Service
 @RequiredArgsConstructor
@@ -35,12 +36,15 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ConsentServiceImpl implements ConsentService {
 
+    private static final String GROUP_CONSENT_TYPE = "CONSENT_TYPE";
+
     private final ConsentRepository consentRepository;
     private final ConsentMapper consentMapper;
     private final ConsentReqMapStruct consentReqMapStruct;
     private final ConsentResMapStruct consentResMapStruct;
     private final PatientStorageService patientStorageService;
     private final ConsentWithdrawHistoryRepository consentWithdrawHistoryRepository;
+    private final CodeValidationService codeValidationService;
 
     @Override
     public List<ConsentResDTO> findList(Long patientId) {
@@ -62,6 +66,11 @@ public class ConsentServiceImpl implements ConsentService {
     @Transactional
     public ConsentResDTO register(Long patientId, ConsentCreateReqDTO createReqDTO, MultipartFile file) {
         log.info("Service: consent create, patientId={}", patientId);
+        codeValidationService.validateActiveCode(
+                GROUP_CONSENT_TYPE,
+                createReqDTO.getConsentType(),
+                "consentType"
+        );
 
         ConsentEntity entity = consentReqMapStruct.toEntity(createReqDTO);
         if (createReqDTO.getPatientId() != null && !patientId.equals(createReqDTO.getPatientId())) {

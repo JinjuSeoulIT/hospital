@@ -9,5 +9,7 @@ import java.util.List;
 public interface CodeRepository extends JpaRepository<CodeEntity, CodeId> {
 
     List<CodeEntity> findAllByGroupCodeAndIsActiveTrueOrderBySortOrderAscCodeAsc(String groupCode);
+
+    boolean existsByGroupCodeAndCodeAndIsActiveTrue(String groupCode, String code);
 }
 

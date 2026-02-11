@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import app.patient.service.CodeValidationService;
 
 @Service
 @RequiredArgsConstructor
@@ -25,10 +26,13 @@ import java.util.List;
 @Slf4j
 public class PatientRestrictionServiceImpl implements PatientRestrictionService {
 
+    private static final String GROUP_PATIENT_RESTRICTION = "PATIENT_RESTRICTION";
+
     private final PatientRestrictionRepository patientRestrictionRepository;
     private final PatientRestrictionMapper patientRestrictionMapper;
     private final PatientRestrictionReqMapStruct patientRestrictionReqMapStruct;
     private final PatientRestrictionResMapStruct patientRestrictionResMapStruct;
+    private final CodeValidationService codeValidationService;
 
     @Override
     public List<PatientRestrictionResDTO> findList() {
@@ -50,6 +54,11 @@ public class PatientRestrictionServiceImpl implements PatientRestrictionService 
     @Transactional
     public PatientRestrictionResDTO register(PatientRestrictionCreateReqDTO createReqDTO) {
         log.info("Service: create restriction");
+        codeValidationService.validateActiveCode(
+                GROUP_PATIENT_RESTRICTION,
+                createReqDTO.getRestrictionType(),
+                "restrictionType"
+        );
         PatientRestrictionEntity entity = patientRestrictionReqMapStruct.toEntity(createReqDTO);
         if (entity.getActiveYn() == null) {
             entity.setActiveYn(Boolean.TRUE);
@@ -66,7 +75,14 @@ public class PatientRestrictionServiceImpl implements PatientRestrictionService 
         PatientRestrictionEntity saved = patientRestrictionRepository.findById(id)
                 .orElseThrow(() -> new PatientRestrictionNotFoundException(id));
 
-        if (updateReqDTO.getRestrictionType() != null) saved.setRestrictionType(updateReqDTO.getRestrictionType());
+        if (updateReqDTO.getRestrictionType() != null) {
+            codeValidationService.validateActiveCode(
+                    GROUP_PATIENT_RESTRICTION,
+                    updateReqDTO.getRestrictionType(),
+                    "restrictionType"
+            );
+            saved.setRestrictionType(updateReqDTO.getRestrictionType());
+        }
         if (updateReqDTO.getActiveYn() != null) saved.setActiveYn(updateReqDTO.getActiveYn());
         if (updateReqDTO.getReason() != null) saved.setReason(updateReqDTO.getReason());
         if (updateReqDTO.getEndAt() != null) saved.setEndAt(updateReqDTO.getEndAt());

@@ -1,23 +1,27 @@
 package app.patient.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import app.patient.storage.PatientStorageService;
 import app.patient.dto.CreateReqDTO;
 import app.patient.dto.PatientResDTO;
 import app.patient.dto.StatusChangeReqDTO;
 import app.patient.dto.UpdateReqDTO;
+import app.patient.entity.PatientInfoHistoryEntity;
 import app.patient.entity.PatientEntity;
 import app.patient.exception.PatientNotFoundException;
 import app.patient.mapper.PatientMapper;
 import app.patient.mapstruct.PatientReqMapStruct;
 import app.patient.mapstruct.PatientResMapStruct;
+import app.patient.repository.PatientInfoHistoryRepository;
 import app.patient.repository.PatientRepository;
 import app.patient.service.PatientService;
+import app.patient.service.CodeValidationService;
 import app.patient.entity.PatientStatusHistoryEntity;
 import app.patient.repository.PatientStatusHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,13 +36,18 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 @Slf4j
 public class PatientServiceImpl implements PatientService {
+    private static final String GROUP_PATIENT_STATUS = "PATIENT_STATUS";
+
 
     private final PatientRepository patientRepository;
     private final PatientStatusHistoryRepository patientStatusHistoryRepository;
+    private final PatientInfoHistoryRepository patientInfoHistoryRepository;
+    private final ObjectMapper objectMapper;
     private final PatientMapper patientMapper;
     private final PatientReqMapStruct patientReqMapStruct;
     private final PatientResMapStruct patientResMapStruct;
     private final PatientStorageService patientStorageService;
+    private final CodeValidationService codeValidationService;
 
     @Override
     public List<PatientResDTO> findList() {
@@ -48,7 +57,6 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    @Cacheable(value = "PATIENT", key = "#id")
     public PatientResDTO findDetail(Long id) {
         log.info("Patient detail id={}", id);
 
@@ -85,6 +93,7 @@ public class PatientServiceImpl implements PatientService {
         }
 
         PatientEntity saved = patientRepository.save(entity);
+        logInfoHistory("CREATE", null, saved, "system");
         logStatusHistory(saved.getPatientId(), "NEW", "ACTIVE", "Created", null);
 
         return patientResMapStruct.toDTO(saved);
@@ -98,6 +107,8 @@ public class PatientServiceImpl implements PatientService {
 
         PatientEntity saved = patientRepository.findById(id)
                 .orElseThrow(() -> new PatientNotFoundException(id));
+
+        PatientEntity before = snapshot(saved);
 
         saved.setName(updatereqDTO.getName());
         saved.setEmail(updatereqDTO.getEmail());
@@ -114,6 +125,7 @@ public class PatientServiceImpl implements PatientService {
         saved.setContactPriority(updatereqDTO.getContactPriority());
         saved.setNote(updatereqDTO.getNote());
 
+        logInfoHistory("UPDATE", before, saved, "system");
         return patientResMapStruct.toDTO(saved);
     }
 
@@ -143,9 +155,7 @@ public class PatientServiceImpl implements PatientService {
 
         String before = entity.getStatusCode();
         String after = statusChangeReqDTO.getStatusCode();
-        if (after == null || after.isBlank()) {
-            throw new IllegalArgumentException("statusCode is required");
-        }
+        codeValidationService.validateActiveCode(GROUP_PATIENT_STATUS, after, "statusCode");
 
         entity.setStatusCode(after);
         if (!after.equals(before)) {
@@ -201,6 +211,58 @@ public class PatientServiceImpl implements PatientService {
         patientStatusHistoryRepository.save(history);
     }
 
+    private PatientEntity snapshot(PatientEntity src) {
+        PatientEntity copy = new PatientEntity();
+        copy.setPatientId(src.getPatientId());
+        copy.setPatientNo(src.getPatientNo());
+        copy.setName(src.getName());
+        copy.setGender(src.getGender());
+        copy.setBirthDate(src.getBirthDate());
+        copy.setPhone(src.getPhone());
+        copy.setEmail(src.getEmail());
+        copy.setAddress(src.getAddress());
+        copy.setAddressDetail(src.getAddressDetail());
+        copy.setGuardianName(src.getGuardianName());
+        copy.setGuardianPhone(src.getGuardianPhone());
+        copy.setGuardianRelation(src.getGuardianRelation());
+        copy.setIsForeigner(src.getIsForeigner());
+        copy.setContactPriority(src.getContactPriority());
+        copy.setNote(src.getNote());
+        copy.setStatusCode(src.getStatusCode());
+        copy.setIsVip(src.getIsVip());
+        copy.setPhotoUrl(src.getPhotoUrl());
+        copy.setCreatedAt(src.getCreatedAt());
+        copy.setUpdatedAt(src.getUpdatedAt());
+        return copy;
+    }
+
+    private void logInfoHistory(String changeType, PatientEntity before, PatientEntity after, String changedBy) {
+        PatientEntity base = after != null ? after : before;
+        if (base == null) {
+            return;
+        }
+
+        PatientInfoHistoryEntity history = new PatientInfoHistoryEntity();
+        history.setPatientId(base.getPatientId());
+        history.setChangeType(changeType);
+        history.setBeforeData(toJson(before));
+        history.setAfterData(toJson(after));
+        history.setChangedBy(changedBy);
+        patientInfoHistoryRepository.save(history);
+    }
+
+    private String toJson(PatientEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+        try {
+            return objectMapper.writeValueAsString(entity);
+        } catch (JsonProcessingException e) {
+            log.warn("Patient info history JSON serialize failed", e);
+            return null;
+        }
+    }
+
     private String genPatientNo() {
         String date = LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE);
         String token = UUID.randomUUID().toString().replace("-", "").substring(0, 4);
@@ -216,4 +278,5 @@ public class PatientServiceImpl implements PatientService {
         return patientResMapStruct.toDTO(entity);
     }
 }
+
 

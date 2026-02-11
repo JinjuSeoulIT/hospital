@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import app.patient.service.CodeValidationService;
 
 @Service
 @RequiredArgsConstructor
@@ -25,10 +26,13 @@ import java.util.List;
 @Slf4j
 public class PatientFlagServiceImpl implements PatientFlagService {
 
+    private static final String GROUP_PATIENT_FLAG = "PATIENT_FLAG";
+
     private final PatientFlagRepository patientFlagRepository;
     private final PatientFlagMapper patientFlagMapper;
     private final PatientFlagReqMapStruct patientFlagReqMapStruct;
     private final PatientFlagResMapStruct patientFlagResMapStruct;
+    private final CodeValidationService codeValidationService;
 
     @Override
     public List<PatientFlagResDTO> findList() {
@@ -50,6 +54,11 @@ public class PatientFlagServiceImpl implements PatientFlagService {
     @Transactional
     public PatientFlagResDTO register(PatientFlagCreateReqDTO createReqDTO) {
         log.info("Service: create flag");
+        codeValidationService.validateActiveCode(
+                GROUP_PATIENT_FLAG,
+                createReqDTO.getFlagType(),
+                "flagType"
+        );
         PatientFlagEntity entity = patientFlagReqMapStruct.toEntity(createReqDTO);
         if (entity.getActiveYn() == null) {
             entity.setActiveYn(Boolean.TRUE);
@@ -66,7 +75,14 @@ public class PatientFlagServiceImpl implements PatientFlagService {
         PatientFlagEntity saved = patientFlagRepository.findById(id)
                 .orElseThrow(() -> new PatientFlagNotFoundException(id));
 
-        if (updateReqDTO.getFlagType() != null) saved.setFlagType(updateReqDTO.getFlagType());
+        if (updateReqDTO.getFlagType() != null) {
+            codeValidationService.validateActiveCode(
+                    GROUP_PATIENT_FLAG,
+                    updateReqDTO.getFlagType(),
+                    "flagType"
+            );
+            saved.setFlagType(updateReqDTO.getFlagType());
+        }
         if (updateReqDTO.getActiveYn() != null) saved.setActiveYn(updateReqDTO.getActiveYn());
         if (updateReqDTO.getNote() != null) saved.setNote(updateReqDTO.getNote());
 
