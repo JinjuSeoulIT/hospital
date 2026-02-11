@@ -9,13 +9,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "LHS", name = "patient")
+@Table(name = "patient")
 @Getter @Setter
 public class PatientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_id_seq")
-    @SequenceGenerator(name = "patient_id_seq", sequenceName = "LHS.PATIENT_ID_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "patient_id_seq", sequenceName = "PATIENT_ID_SEQ", allocationSize = 1)
     @Column(name = "patient_id")
     private Long patientId;
 

@@ -7,18 +7,18 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "LHS", name = "insurance_history")
+@Table(name = "patient_insurance_history")
 @Getter
 @Setter
 public class InsuranceHistoryEntity {
 
     @Id
     @SequenceGenerator(
-            name = "insurance_history_seq",
-            sequenceName = "LHS.INSURANCE_HISTORY_SEQ",
+            name = "patient_insurance_history_seq",
+            sequenceName = "PATIENT_INSURANCE_HISTORY_SEQ",
             allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "insurance_history_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_insurance_history_seq")
     @Column(name = "history_id")
     private Long historyId;
 

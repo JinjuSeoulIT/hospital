@@ -7,25 +7,25 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "LHS", name = "flag")
+@Table(name = "patient_flag")
 @Getter
 @Setter
 public class PatientFlagEntity {
 
     @Id
     @SequenceGenerator(
-            name = "flag_seq",
-            sequenceName = "LHS.FLAG_SEQ",
+            name = "patient_flag_seq",
+            sequenceName = "PATIENT_FLAG_SEQ",
             allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "flag_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_flag_seq")
     @Column(name = "flag_id")
     private Long flagId;
 
     @Column(name = "patient_id", nullable = false, length = 20)
     private Long patientId;
 
-    @Column(name = "flag_type", nullable = false, length = 50)
+    @Column(name = "flag_type", nullable = false, length = 20)
     private String flagType;
 
     @Column(name = "note", length = 500)

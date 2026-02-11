@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = "LHS", name = "memo")
+@Table(name = "patient_memo")
 @Getter
 @Setter
 public class PatientMemoEntity {
@@ -15,7 +15,7 @@ public class PatientMemoEntity {
     @Id
     @SequenceGenerator(
             name = "patient_memo_seq",
-            sequenceName = "LHS.PATIENT_MEMO_SEQ",
+            sequenceName = "PATIENT_MEMO_SEQ",
             allocationSize = 1
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_memo_seq")

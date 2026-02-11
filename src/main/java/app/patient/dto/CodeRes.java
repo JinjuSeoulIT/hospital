@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class CodeRes {
 
-    private Long id;
     private String groupCode;
     private String code;
     private String name;
