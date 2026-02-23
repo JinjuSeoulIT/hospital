@@ -2,6 +2,7 @@ package app.nursing.record.service;
 
 import app.nursing.record.dto.RecordDTO;
 import app.nursing.record.entity.RecordEntity;
+import app.nursing.record.exception.RecordNotFoundException;
 import app.nursing.record.mapstruct.RecordReqMapStruct;
 import app.nursing.record.mapstruct.RecordResMapStruct;
 import app.nursing.record.repository.RecordRepository;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,7 +36,7 @@ public class RecordServiceImpl implements RecordService {
         log.info("Record detail nursingId={} 로 간호 기록 단건 조회 메서드가 실행됩니다.", id);
 
         RecordEntity entity = recordRepository.findById(id).
-                orElseThrow(()-> new IllegalArgumentException("해당 기록이 존재하지 않습니다"));
+                orElseThrow(() -> new RecordNotFoundException(id));
 
         return recordResMapStruct.toDTO(entity);
     }
@@ -62,7 +62,7 @@ public class RecordServiceImpl implements RecordService {
         log.info("Modify record id={} 간호 기록 수정 메서드가 실행됩니다", id);
 
         RecordEntity saved = recordRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("수정할 기록이 존재하지 않습니다"));
+                .orElseThrow(() -> new RecordNotFoundException(id));
 
         saved.setVisitId(recordDTO.getVisitId());
         saved.setSystolicBp(recordDTO.getSystolicBp());
@@ -87,7 +87,7 @@ public class RecordServiceImpl implements RecordService {
         log.info("Delete record id={} 기록 비활성화 메서드가 실행됩니다", id);
 
         RecordEntity entity = recordRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("비활성화 할 문건이 존재하지 않습니다"));
+                .orElseThrow(() -> new RecordNotFoundException(id));
 
         entity.setStatus("INACTIVE");
 

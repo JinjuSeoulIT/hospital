@@ -29,3 +29,16 @@
 2026-02-23 14:26:21,591 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiTimingAspect - [API] POST /api/record - 46 ms
 2026-02-23 14:26:50,603 INFO  [http-nio-0.0.0.0-8181-exec-3] app.common.aop.ApiTimingAspect - [API] POST /api/record - 78 ms
 2026-02-23 14:27:05,245 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiTimingAspect - [API] POST /api/record - 91 ms
+2026-02-23 14:33:48,654 INFO  [http-nio-0.0.0.0-8181-exec-7] app.common.aop.ApiTimingAspect - [API] GET /api/record - 53 ms
+2026-02-23 14:33:54,728 INFO  [http-nio-0.0.0.0-8181-exec-8] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001 - 43 ms
+2026-02-23 14:33:58,356 INFO  [http-nio-0.0.0.0-8181-exec-9] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 28 ms
+2026-02-23 15:14:46,830 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 56 ms
+2026-02-23 15:14:49,314 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 24 ms
+2026-02-23 15:15:40,897 INFO  [http-nio-0.0.0.0-8181-exec-5] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 163 ms
+2026-02-23 15:16:36,681 INFO  [http-nio-0.0.0.0-8181-exec-1] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 84 ms
+2026-02-23 15:18:55,477 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 34 ms
+2026-02-23 15:18:55,478 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 0 ms
+2026-02-23 15:29:01,165 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiTimingAspect - [API] GET /api/record/NUR_001222 - 31 ms
+2026-02-23 15:29:54,668 INFO  [http-nio-0.0.0.0-8181-exec-3] app.common.aop.ApiTimingAspect - [API] PUT /api/record/NUR_001222 - 79 ms
+2026-02-23 15:30:04,106 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiTimingAspect - [API] PUT /api/record/NUR_001 - 65 ms
+2026-02-23 15:30:12,666 INFO  [http-nio-0.0.0.0-8181-exec-5] app.common.aop.ApiTimingAspect - [API] DELETE /api/record/NUR_00122 - 30 ms

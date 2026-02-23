@@ -70,9 +70,4 @@ public class RecordController {
         recordService.deleteRecord(id);
         return ResponseEntity.ok(new ApiResponse<>(true, "비활성화 되었습니다", id));
     }
-
-
-
-
-
 }
