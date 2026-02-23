@@ -1,2 +1,13 @@
-2026-02-19 15:46:56,345 WARN  [http-nio-0.0.0.0-8181-exec-10] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/vital ip=0:0:0:0:0:0:0:1 ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 params= status=500 INTERNAL_SERVER_ERROR
-2026-02-19 15:47:10,511 WARN  [http-nio-0.0.0.0-8181-exec-1] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/vital ip=0:0:0:0:0:0:0:1 ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 params= status=500 INTERNAL_SERVER_ERROR
+2026-02-23 11:52:05,099 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 12:02:27,875 INFO  [http-nio-0.0.0.0-8181-exec-5] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 12:02:57,049 INFO  [http-nio-0.0.0.0-8181-exec-6] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 12:04:14,226 INFO  [http-nio-0.0.0.0-8181-exec-9] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 12:04:38,560 INFO  [http-nio-0.0.0.0-8181-exec-10] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 12:05:15,035 INFO  [http-nio-0.0.0.0-8181-exec-1] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 14:12:12,577 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/record/NUR_1771815914974 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 14:13:38,660 INFO  [http-nio-0.0.0.0-8181-exec-1] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/record/NUR_1771815878526 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 14:14:41,677 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/record/NUR_1771815854198 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 14:23:19,264 INFO  [http-nio-0.0.0.0-8181-exec-3] app.common.aop.ApiAuditAspect - [AUDIT] DELETE /api/record/NUR_1771815914974 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 14:26:21,591 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 14:26:50,603 INFO  [http-nio-0.0.0.0-8181-exec-3] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-23 14:27:05,245 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/record ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=

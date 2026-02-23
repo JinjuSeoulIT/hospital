@@ -23,4 +23,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest()
                 .body(new ApiResponse<>(false, e.getMessage(), null));
     }
+
+
 }

@@ -13,9 +13,6 @@ public interface AssessmentService {
     AssessmentDTO registerAssessment(AssessmentDTO assessmentDTO);
     AssessmentDTO modifyAssessment(String id, AssessmentDTO assessmentDTO);
     void deleteAssessment(String id);
-
-
-
 }
 
 
