@@ -4,17 +4,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class SpecimenDTO {
 
     private String specimenId;
-    private String visitId;
+    private String specimenStatus;
     private String specimenType;
-    private String collectedAt;
+    private String testExecutionID ;
+    private LocalDateTime collectedAt;
+    private String collectedById;
     private String status;
-    private String createdAt;
-    private String updatedAt;
-    private String createdBy;
 }

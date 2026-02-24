@@ -28,7 +28,7 @@ public class SpecimenController {
 
         List<SpecimenDTO> list = specimenService.findSpecimenList();
 
-        return ResponseEntity.ok(new ApiResponse<>(true, "전체 목록 조회 성공", list));
+        return ResponseEntity.ok(new ApiResponse<>(true, "검체 전체 목록 조회 성공", list));
     }
 
 
@@ -37,7 +37,7 @@ public class SpecimenController {
     public ResponseEntity<ApiResponse<SpecimenDTO>> findSpecimenDetail(@PathVariable String id) {
 
         SpecimenDTO specimenDTO = specimenService.findSpecimenDetail(id);
-        return ResponseEntity.ok(new ApiResponse<>(true, "OK", specimenDTO));
+        return ResponseEntity.ok(new ApiResponse<>(true, "검체 단건 조회 성공", specimenDTO));
     }
 
 
@@ -68,7 +68,7 @@ public class SpecimenController {
     public ResponseEntity<ApiResponse<String>> removeSpecimen(@PathVariable String id) {
 
         specimenService.deleteSpecimen(id);
-        return ResponseEntity.ok(new ApiResponse<>(true, "비활성화 되었습니다", id));
+        return ResponseEntity.ok(new ApiResponse<>(true, "검체가 비활성화 되었습니다", id));
     }
 
 

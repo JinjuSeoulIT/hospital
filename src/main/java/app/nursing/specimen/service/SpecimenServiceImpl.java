@@ -2,6 +2,7 @@ package app.nursing.specimen.service;
 
 import app.nursing.specimen.dto.SpecimenDTO;
 import app.nursing.specimen.entity.SpecimenEntity;
+import app.nursing.specimen.exception.SpecimenNotFoundException;
 import app.nursing.specimen.mapstruct.SpecimenReqMapStruct;
 import app.nursing.specimen.mapstruct.SpecimenResMapStruct;
 import app.nursing.specimen.repository.SpecimenRepository;
@@ -46,9 +47,11 @@ public class SpecimenServiceImpl implements SpecimenService {
         SpecimenEntity entity = specimenReqMapStruct.toEntity(specimenDTO);
 
         if (entity.getSpecimenId() == null || entity.getSpecimenId().trim().isEmpty()) {
-            entity.setSpecimenId("Sp_" + UUID.randomUUID());
+            entity.setSpecimenId("SP_" + System.currentTimeMillis() );
+
         }
         SpecimenEntity newSpecimen = specimenRepository.save(entity);
+        newSpecimen.setStatus("ACTIVE");
         return specimenResMapStruct.toDTO(newSpecimen);
     }
 
@@ -59,12 +62,11 @@ public class SpecimenServiceImpl implements SpecimenService {
         log.info("Modify specimen id={} 검체 수정 메서드가 실행됩니다", id);
 
         SpecimenEntity saved = specimenRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("수정할 검체이 존재하지 않습니다"));
+                .orElseThrow(() -> new SpecimenNotFoundException("수정할 검체가 존재하지 않습니다"));
 
-        saved.setVisitId(specimenDTO.getVisitId());
+        saved.setSpecimenStatus(specimenDTO.getSpecimenStatus());
         saved.setSpecimenType(specimenDTO.getSpecimenType());
-        saved.setStatus(specimenDTO.getStatus());
-        saved.setCreatedBy(specimenDTO.getCreatedBy());
+        saved.setCollectedById(specimenDTO.getCollectedById());
 
         SpecimenEntity updated = specimenRepository.save(saved);
         return specimenResMapStruct.toDTO(updated);
@@ -76,9 +78,9 @@ public class SpecimenServiceImpl implements SpecimenService {
         log.info("Delete specimen id={} 검체 삭제 메서드가 실행됩니다", id);
 
         SpecimenEntity entity = specimenRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("비활성화 할 검체이 존재하지 않습니다"));
+                .orElseThrow(() -> new SpecimenNotFoundException("비활성화 할 검체가 존재하지 않습니다"));
 
-        entity.setStatus("N");
+        entity.setStatus("INACTIVE");
 
         specimenRepository.save(entity);
 

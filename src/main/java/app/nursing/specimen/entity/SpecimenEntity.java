@@ -12,31 +12,28 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(schema = "CHJ",name = "SPECIMEN")
+@Table(schema = "HOSPITAL",name = "SUPPORT_SPECIMEN")
 public class SpecimenEntity {
 
     @Id
     @Column(name = "SPECIMEN_ID")
     private String specimenId;
 
-    @Column(name = "VISIT_ID")
-    private String visitId;
+    @Column(name = "SPECIMEN_STATUS")
+    private String specimenStatus;
 
     @Column(name = "SPECIMEN_TYPE")
     private String specimenType;
 
+    @Column(name = "TEST_EXECUTION_ID")
+    private String testExecutionId;
+
     @Column(name = "COLLECTED_AT")
     private LocalDateTime collectedAt;
 
+    @Column(name = "COLLECTED_BY_ID")
+    private String collectedById;
+
     @Column(name = "STATUS")
     private String status;
-
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
-
-    @Column(name = "UPDATED_AT")
-    private LocalDateTime updatedAt;
-
-    @Column(name = "CREATED_BY")
-    private String createdBy;
 }

@@ -2,7 +2,6 @@ package app.nursing.specimen.mapstruct;
 
 import app.nursing.specimen.dto.SpecimenDTO;
 import app.nursing.specimen.entity.SpecimenEntity;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-23T15:18:15+0900",
+    date = "2026-02-24T10:23:02+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 17.0.12 (Oracle Corporation)"
 )
 @Component
@@ -25,19 +24,11 @@ public class SpecimenResMapStructImpl implements SpecimenResMapStruct {
         SpecimenDTO specimenDTO = new SpecimenDTO();
 
         specimenDTO.setSpecimenId( entity.getSpecimenId() );
-        specimenDTO.setVisitId( entity.getVisitId() );
+        specimenDTO.setSpecimenStatus( entity.getSpecimenStatus() );
         specimenDTO.setSpecimenType( entity.getSpecimenType() );
-        if ( entity.getCollectedAt() != null ) {
-            specimenDTO.setCollectedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getCollectedAt() ) );
-        }
+        specimenDTO.setCollectedAt( entity.getCollectedAt() );
+        specimenDTO.setCollectedById( entity.getCollectedById() );
         specimenDTO.setStatus( entity.getStatus() );
-        if ( entity.getCreatedAt() != null ) {
-            specimenDTO.setCreatedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getCreatedAt() ) );
-        }
-        if ( entity.getUpdatedAt() != null ) {
-            specimenDTO.setUpdatedAt( DateTimeFormatter.ISO_LOCAL_DATE_TIME.format( entity.getUpdatedAt() ) );
-        }
-        specimenDTO.setCreatedBy( entity.getCreatedBy() );
 
         return specimenDTO;
     }
