@@ -1,15 +1,3 @@
-2026-02-24 10:19:27,398 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/specimen ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:19:38,261 INFO  [http-nio-0.0.0.0-8181-exec-5] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/specimen ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:19:42,085 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/specimen ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:20:06,403 INFO  [http-nio-0.0.0.0-8181-exec-9] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/specimen ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:20:56,216 INFO  [http-nio-0.0.0.0-8181-exec-8] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:21:41,317 INFO  [http-nio-0.0.0.0-8181-exec-10] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:21:55,045 INFO  [http-nio-0.0.0.0-8181-exec-7] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:23:15,470 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:23:25,077 INFO  [http-nio-0.0.0.0-8181-exec-6] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:23:36,300 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:23:40,682 INFO  [http-nio-0.0.0.0-8181-exec-5] app.common.aop.ApiAuditAspect - [AUDIT] DELETE /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:24:33,183 INFO  [http-nio-0.0.0.0-8181-exec-2] app.common.aop.ApiAuditAspect - [AUDIT] PUT /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:24:46,458 INFO  [http-nio-0.0.0.0-8181-exec-3] app.common.aop.ApiAuditAspect - [AUDIT] DELETE /api/specimen/SP-003 ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:25:56,746 INFO  [http-nio-0.0.0.0-8181-exec-8] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/specimen ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
-2026-02-24 10:27:30,207 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiAuditAspect - [AUDIT] POST /api/specimen ip=0:0:0:0:0:0:0:1 ua=PostmanRuntime/7.51.1 params=
+2026-02-27 17:03:02,055 INFO  [http-nio-0.0.0.0-8181-exec-1] app.common.aop.ApiAuditAspect - [AUDIT] DELETE /api/record/NUR_001 ip=192.168.1.54 ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 params=
+2026-02-27 17:04:23,629 INFO  [http-nio-0.0.0.0-8181-exec-4] app.common.aop.ApiAuditAspect - [AUDIT] DELETE /api/record/NUR_1771824410549 ip=192.168.1.54 ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 params=
+2026-02-27 17:21:06,844 INFO  [http-nio-0.0.0.0-8181-exec-9] app.common.aop.ApiAuditAspect - [AUDIT] DELETE /api/record/NUR_1771824425179 ip=192.168.1.71 ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0 params=
