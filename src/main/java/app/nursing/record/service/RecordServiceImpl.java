@@ -3,6 +3,7 @@ package app.nursing.record.service;
 import app.nursing.record.dto.RecordDTO;
 import app.nursing.record.entity.RecordEntity;
 import app.nursing.record.exception.RecordNotFoundException;
+import app.nursing.record.mapper.RecordMapper;
 import app.nursing.record.mapstruct.RecordReqMapStruct;
 import app.nursing.record.mapstruct.RecordResMapStruct;
 import app.nursing.record.repository.RecordRepository;
@@ -20,9 +21,19 @@ public class RecordServiceImpl implements RecordService {
         private final RecordRepository recordRepository;
         private final RecordReqMapStruct recordReqMapStruct;
         private final RecordResMapStruct recordResMapStruct;
+        private final RecordMapper recordMapper;
 
 
+    @Override
+    public List<RecordDTO> search (String searchType, String searchValue){
 
+                if (searchType == null || searchType.isEmpty()){
+                    throw new RecordNotFoundException("검색 타입이 필요합니다");
+                }
+                List<RecordEntity> entities =
+                        recordMapper.search(searchType, searchValue);
+                return recordResMapStruct.toDTOList(entities);
+    }
 
     @Override
     public List<RecordDTO> findRecordList() {

@@ -22,6 +22,20 @@ public class RecordController {
 
     private final RecordService recordService;
 
+
+    @Operation(summary = "record search", description = "기록 검색")
+    @GetMapping("/search")
+    public ResponseEntity<ApiResponse<List<RecordDTO>>> search(
+            @RequestParam("searchType") String searchType,
+            @RequestParam("searchValue") String searchValue
+    ) {
+        List<RecordDTO> result = recordService.search(searchType, searchValue);
+        return ResponseEntity.ok(
+                new ApiResponse<>(true, "기록 검색 성공", result)
+        );
+    }
+
+
     @Operation(summary = "record list", description = "기록 전체 목록 조회")
     @GetMapping
     public ResponseEntity<ApiResponse<List<RecordDTO>>> findList() {
