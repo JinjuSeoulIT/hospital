@@ -29,7 +29,7 @@
             <when test="searchType == 'visitId'">
         AND visit_id = #{searchValue}
             </when>
-        <when test="searchType == 'recordDate'">
+        <when test="searchType == 'recordedAt'">
         AND TO_CHAR(recorded_at, 'YYYY-MM-DD') = #{searchValue}
 
         </when>
