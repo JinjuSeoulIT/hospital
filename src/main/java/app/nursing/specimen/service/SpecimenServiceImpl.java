@@ -1,8 +1,12 @@
 package app.nursing.specimen.service;
 
+import app.nursing.record.dto.RecordDTO;
+import app.nursing.record.entity.RecordEntity;
+import app.nursing.record.exception.RecordNotFoundException;
 import app.nursing.specimen.dto.SpecimenDTO;
 import app.nursing.specimen.entity.SpecimenEntity;
 import app.nursing.specimen.exception.SpecimenNotFoundException;
+import app.nursing.specimen.mapper.SpecimenMapper;
 import app.nursing.specimen.mapstruct.SpecimenReqMapStruct;
 import app.nursing.specimen.mapstruct.SpecimenResMapStruct;
 import app.nursing.specimen.repository.SpecimenRepository;
@@ -22,6 +26,21 @@ public class SpecimenServiceImpl implements SpecimenService {
     private final SpecimenRepository specimenRepository;
     private final SpecimenReqMapStruct specimenReqMapStruct;
     private final SpecimenResMapStruct specimenResMapStruct;
+    private final SpecimenMapper specimenMapper;
+
+
+
+    @Override
+    public List<SpecimenDTO> searchSpecimen (String searchType, String searchValue){
+        log.info("검색 service 호출 searchType={}, searchValue={}", searchType, searchValue );
+        if (searchType == null || searchType.isEmpty()){
+            throw new SpecimenNotFoundException("검색 타입이 필요합니다");
+        }
+        List<SpecimenEntity> entities =
+                specimenMapper.searchSpecimen(searchType, searchValue);
+        return specimenResMapStruct.toDTOList(entities);
+    }
+
 
     @Override
     public List<SpecimenDTO> findSpecimenList() {
@@ -64,9 +83,11 @@ public class SpecimenServiceImpl implements SpecimenService {
         SpecimenEntity saved = specimenRepository.findById(id)
                 .orElseThrow(() -> new SpecimenNotFoundException("수정할 검체가 존재하지 않습니다"));
 
+        saved.setTestExecutionId(specimenDTO.getTestExecutionId());
         saved.setSpecimenStatus(specimenDTO.getSpecimenStatus());
         saved.setSpecimenType(specimenDTO.getSpecimenType());
         saved.setCollectedById(specimenDTO.getCollectedById());
+        saved.setStatus(specimenDTO.getStatus());
 
         SpecimenEntity updated = specimenRepository.save(saved);
         return specimenResMapStruct.toDTO(updated);

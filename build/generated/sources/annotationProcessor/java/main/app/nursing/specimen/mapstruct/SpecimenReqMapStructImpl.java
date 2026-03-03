@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-26T11:15:35+0900",
+    date = "2026-03-03T12:46:34+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 17.0.12 (Oracle Corporation)"
 )
 @Component
@@ -24,6 +24,7 @@ public class SpecimenReqMapStructImpl implements SpecimenReqMapStruct {
         specimenEntity.setSpecimenId( dto.getSpecimenId() );
         specimenEntity.setSpecimenStatus( dto.getSpecimenStatus() );
         specimenEntity.setSpecimenType( dto.getSpecimenType() );
+        specimenEntity.setTestExecutionId( dto.getTestExecutionId() );
         specimenEntity.setCollectedAt( dto.getCollectedAt() );
         specimenEntity.setCollectedById( dto.getCollectedById() );
         specimenEntity.setStatus( dto.getStatus() );

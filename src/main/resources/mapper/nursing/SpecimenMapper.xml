@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="app.nursing.specimen.mapper.SpecimenMapper">
+
+    <select id="searchSpecimen" resultType="app.nursing.specimen.entity.SpecimenEntity">
+        SELECT
+        specimen_id,
+        specimen_status,
+        specimen_type,
+        test_execution_id,
+        collected_at,
+        collected_by_id,
+        status
+        FROM hospital.support_specimen
+        WHERE status = 'ACTIVE'
+        <choose>
+            <when test="searchType == 'testExecutionId'">
+                AND test_execution_id = #{searchValue}
+            </when>
+            <when test="searchType == 'collectedAt'">
+                AND TO_CHAR(collected_at, 'YYYY-MM-DD') = #{searchValue}
+
+            </when>
+
+        </choose>
+        ORDER BY collected_at DESC
+    </select>
+</mapper>

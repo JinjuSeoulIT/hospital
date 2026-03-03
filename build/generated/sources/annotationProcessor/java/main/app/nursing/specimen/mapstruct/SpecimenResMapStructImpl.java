@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-26T11:15:34+0900",
+    date = "2026-03-03T12:46:34+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 17.0.12 (Oracle Corporation)"
 )
 @Component
@@ -26,6 +26,7 @@ public class SpecimenResMapStructImpl implements SpecimenResMapStruct {
         specimenDTO.setSpecimenId( entity.getSpecimenId() );
         specimenDTO.setSpecimenStatus( entity.getSpecimenStatus() );
         specimenDTO.setSpecimenType( entity.getSpecimenType() );
+        specimenDTO.setTestExecutionId( entity.getTestExecutionId() );
         specimenDTO.setCollectedAt( entity.getCollectedAt() );
         specimenDTO.setCollectedById( entity.getCollectedById() );
         specimenDTO.setStatus( entity.getStatus() );
