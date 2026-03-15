@@ -18,8 +18,7 @@ public class RecordEntity {
     @Column(name = "NURSING_ID")
     private String nursingId;
 
-    @Column(name = "VISIT_ID")
-    private Long visitId;
+
 
     @Column(name = "RECORDED_AT")
     private LocalDateTime recordedAt;
@@ -62,4 +61,7 @@ public class RecordEntity {
 
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
+
+    @Column(name = "RECEPTION_ID")
+    private String receptionId;
 }

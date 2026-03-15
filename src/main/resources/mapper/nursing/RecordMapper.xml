@@ -8,7 +8,6 @@
     <select id="search" resultType="app.nursing.record.entity.RecordEntity">
         SELECT
         nursing_id,
-        visit_id,
         recorded_at,
         systolic_bp,
         diastolic_bp,
@@ -22,17 +21,20 @@
         initial_assessment,
         status,
         created_at,
-        updated_at
+        updated_at,
+        reception_id
         FROM nursing_record
         WHERE status = 'ACTIVE'
         <choose>
-            <when test="searchType == 'visitId'">
-        AND visit_id = #{searchValue}
+            <when test="searchType != null and searchType.equals('reception_id')">
+                AND reception_id = #{searchValue}
             </when>
-        <when test="searchType == 'recordedAt'">
-        AND TO_CHAR(recorded_at, 'YYYY-MM-DD') = #{searchValue}
-
-        </when>
+            <when test="searchType != null and searchType.equals('recordedAt')">
+                AND TO_CHAR(recorded_at, 'YYYY-MM-DD') = #{searchValue}
+            </when>
+            <otherwise>
+                AND 1 = 0
+            </otherwise>
 
         </choose>
         ORDER BY created_at DESC

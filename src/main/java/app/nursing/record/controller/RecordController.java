@@ -25,7 +25,7 @@ public class RecordController {
     @Operation(summary = "record search", description = "기록 검색")
     @GetMapping("/search")
     public ResponseEntity<ApiResponse<List<RecordDTO>>> search(
-            @Parameter(description = "검색 조건 타입: visitId(진료 아이디), recordedAt(기록 시각)")
+            @Parameter(description = "검색 조건 타입: receptionId(진료 아이디), recordedAt(기록 시각)")
             @RequestParam("searchType") String searchType,
 
             @Parameter(description = "사용자 검색 값")
@@ -64,9 +64,9 @@ public class RecordController {
     public ResponseEntity<ApiResponse<RecordDTO>> registerRecord(
             @Parameter(description = "신규 간호 기록 등록을 위한 요청 데이터")
             @RequestBody RecordDTO record)
-    {
-        RecordDTO recordDTO = recordService.registerRecord(record);
-        return ResponseEntity.ok(new ApiResponse<>(true, "기록 신규 생성 성공", recordDTO));
+    {RecordDTO recordDTO = recordService.registerRecord(record);
+        return ResponseEntity.ok
+                (new ApiResponse<>(true, "기록 신규 생성 성공", recordDTO));
     }
 
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RecordResMapStruct {
-
     RecordDTO toDTO(RecordEntity entity);
-    List<RecordDTO> toDTOList(List<RecordEntity> entities) ;
+
+    List<RecordDTO> toDTOList(List<RecordEntity> entities);
 }

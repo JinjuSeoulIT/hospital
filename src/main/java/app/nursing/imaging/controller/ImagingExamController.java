@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/imaging-exam")
+@RequestMapping("/api/imagingExam")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "ImagingExam", description = "Imaging exam CRUD")

@@ -16,9 +16,6 @@ public class RecordDTO {
     @Schema(description = "간호 기록 아이디")
     private String nursingId;
 
-    @Schema(description = "진료 아이디")
-    private Long visitId;
-
     @Schema(description = "기록 시각")
     private LocalDateTime recordedAt;
 
@@ -60,4 +57,8 @@ public class RecordDTO {
 
     @Schema(description = "수정 일시")
     private LocalDateTime updatedAt;
+
+    @Schema(description = "접수 아이디")
+    private String receptionId;
+
 }

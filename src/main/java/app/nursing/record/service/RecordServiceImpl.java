@@ -75,7 +75,6 @@ public class RecordServiceImpl implements RecordService {
         RecordEntity saved = recordRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(id));
 
-        saved.setVisitId(recordDTO.getVisitId());
         saved.setSystolicBp(recordDTO.getSystolicBp());
         saved.setDiastolicBp(recordDTO.getDiastolicBp());
         saved.setPulse(recordDTO.getPulse());
